@@ -45,7 +45,7 @@ public class CustomerBean {
 		transaction.begin();
 		entityManager.merge(newCustomer);
 		transaction.commit();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der Kunde " + newCustomer.getFirstName() + " " + newCustomer.getLastName() + " wurde gespeichert"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der Kunde " + newCustomer.getFirstName() + " " + newCustomer.getLastName() + " " + newCustomer.getStreet() + " " + newCustomer.getAddress() + " wurde gespeichert"));
 	}
 	
 	public List<Customer> getCustomerList() {

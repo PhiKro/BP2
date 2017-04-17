@@ -32,13 +32,21 @@ public class Customer implements Serializable {
 
 	@Column(name="LAST_NAME")
 	private String lastName;
+	
+	//Street und Address hinzugefügt aber im xhtml erkennt er es einfach nicht...
+	@Column(name="STREET")
+	private String street;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "CUSTOMER_ADDRESS",
-		joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
-		inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
-	)
-	private Set<Address> addresses = new HashSet<>();
+	@Column(name="ADDRESS")
+	private String address;
+
+//	Klasse Addresse wird nicht seperat abgespeichert sondern direkt bei Customer hier integriert (siehe oben)
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "CUSTOMER_ADDRESS",
+//		joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
+//		inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
+//	)
+//	private Set<Address> addresses = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -63,13 +71,29 @@ public class Customer implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-	public Set<Address> getAddresses() {
-		return addresses;
+	
+	public String getStreet() {
+		return street;
 	}
 
-	public void setAddresses(Set<Address> addresses) {
-		this.addresses = addresses;
+	public void setStreet(String street) {
+		this.street = street;
 	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+//	public Set<Address> getAddresses() {
+//		return addresses;
+//	}
+//
+//	public void setAddresses(Set<Address> addresses) {
+//		this.addresses = addresses;
+//	}
 
 }
