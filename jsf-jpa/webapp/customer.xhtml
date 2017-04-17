@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+	<ui:define name="header">
+		Customer
+	</ui:define>
+	
+	<p:fieldset legend="Customer anlegen" style="margin-bottom:20px">
+		<p:inputText label="Firstname" value="${customerBean.newCustomer.firstName}"/>
+		<p:inputText label="Lastname" value="${customerBean.newCustomer.lastName}"/>
+		<p:commandButton value="Speichern" actionListener="${customerBean.save}" update="messages,customerList" />
+	</p:fieldset>
+
+	<p:dataTable id="customerList" value="#{customerBean.customerList}" var="customer">
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Kunden ID"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{customer.id}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Vorname"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{customer.firstName}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Nachname"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{customer.lastName}"></h:outputText>
+		</p:column>
+	</p:dataTable>
+	
+</ui:composition>
