@@ -6,10 +6,10 @@
                 template="/WEB-INF/template.xhtml">
                 
 	<ui:define name="header">
-		Artikel
+		User
 	</ui:define>
 	
-	<p:fieldset legend="Artikel anlegen" style="margin-bottom:20px">
+	<p:fieldset legend="User anlegen" style="margin-bottom:20px">
 		<p:inputText label="Artikelname" value="${articleBean.newArticle.name}"/>
 		<p:commandButton value="Speichern" actionListener="${articleBean.save}" update="messages,articleList" />
 	</p:fieldset>
