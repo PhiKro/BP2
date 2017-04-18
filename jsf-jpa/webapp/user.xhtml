@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+	<ui:define name="header">
+		User
+	</ui:define>
+	
+	<p:fieldset legend="User anlegen" style="margin-bottom:20px">
+		<p:inputText label="Vorname" value="${userBean.newUser.vorname}"/>
+		<p:inputText label="Nachname" value="${userBean.newUser.nachname}"/>
+		<p:inputText label="Strasse" value="${userBean.newUser.strasse}"/>
+		<p:inputText label="Adresse" value="${userBean.newUser.adresse}"/>
+		<p:inputText label="Plz" value="${userBean.newUser.plz}"/>
+		<p:commandButton value="Speichern" actionListener="${userBean.save}" update="messages,userList" />
+	</p:fieldset>
+
+	<p:dataTable id="userList" value="#{userBean.userList}" var="user">
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="User ID"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{user.id}"></h:outputText>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Vorname"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{user.vorname}"></h:outputText>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Nachname"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{user.nachname}"></h:outputText>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Strasse"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{user.strasse}"></h:outputText>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Adresse"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{user.adresse}"></h:outputText>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Plz"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{user.plz}"></h:outputText>
+		</p:column>
+	</p:dataTable>
+	
+</ui:composition>

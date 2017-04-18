@@ -45,7 +45,7 @@ public class CustomerBean {
 		transaction.begin();
 		entityManager.merge(newCustomer);
 		transaction.commit();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der Kunde " + newCustomer.getFirstName() + " " + newCustomer.getLastName() + " " + newCustomer.getStreet() + " " + newCustomer.getAddress() + " wurde gespeichert"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der Kunde " + newCustomer.getFirstName() + " " + newCustomer.getLastName() ));//+ " " + newCustomer.getStreet() + " " + newCustomer.getAddress() + " wurde gespeichert"));
 	}
 	
 	public List<Customer> getCustomerList() {
@@ -64,14 +64,14 @@ public class CustomerBean {
 		this.newCustomer = newCustomer;
 	}
 	
-	public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
+//	public void onCellEdit(CellEditEvent event) {
+//        Object oldValue = event.getOldValue();
+//        Object newValue = event.getNewValue();
+//         
+//        if(newValue != null && !newValue.equals(oldValue)) {
+//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//        }
+//    }
 
 }
