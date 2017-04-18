@@ -81,8 +81,16 @@ public class UserBean {
 	}
 	
 	public void deleteUser() {
-		userList.remove(selectedUser);
-		selectedUser = null;
+		
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.remove(selectedUser);
+		transaction.commit();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde gelöscht" ));
+	
+		
+//		userList.remove(selectedUser);
+//		selectedUser = null;
 	}
 
 }
