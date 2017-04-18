@@ -25,12 +25,7 @@ public class UserBean {
 	
 	private User newUser = new User();
 	private List<User> userList = new ArrayList<User>();
-	
 	private User selectedUser;
-	
-	public UserBean(){
-	
-	}
 
 	@PostConstruct
 	public void createEntityManager() {
@@ -51,7 +46,7 @@ public class UserBean {
 		transaction.begin();
 		entityManager.merge(newUser);
 		transaction.commit();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde hinzugefügt" ));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde hinzugefuegt" ));
 	}
 
 	public User getNewUser() {
@@ -71,7 +66,7 @@ public class UserBean {
 		this.userList = userList;
 	}
 	
-	//SelectedUser auswählen und löschen
+	//SelectedUser auswaehlen und loeschen
 	public User getSelectedUser() {
 		return selectedUser;
 	}
@@ -86,11 +81,7 @@ public class UserBean {
 		transaction.begin();
 		entityManager.remove(selectedUser);
 		transaction.commit();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde gel�scht" ));
-	
-		
-//		userList.remove(selectedUser);
-//		selectedUser = null;
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde geloescht" ));
 	}
 
 }
