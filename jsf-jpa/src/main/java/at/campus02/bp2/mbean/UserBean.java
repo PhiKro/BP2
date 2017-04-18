@@ -24,12 +24,14 @@ public class UserBean {
 	private EntityManager entityManager;
 	
 	private User newUser = new User();
-	private List<User> userList = new ArrayList<>();
+	private List<User> userList = new ArrayList<User>();
+	
+	private User selectedUser;
 	
 	public UserBean(){
-		
-	}
 	
+	}
+
 	@PostConstruct
 	public void createEntityManager() {
 		entityManager = EntityManagerFactoryProvider.get().createEntityManager();
@@ -41,7 +43,7 @@ public class UserBean {
 	}
 	
 	public void loadUserFromDB(){
-		userList =entityManager.createQuery("from User",User.class).getResultList();
+		userList = entityManager.createQuery("from User", User.class).getResultList();
 	}
 	
 	public void save() {
@@ -67,6 +69,20 @@ public class UserBean {
 
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
+	}
+	
+	//SelectedUser auswählen und löschen
+	public User getSelectedUser() {
+		return selectedUser;
+	}
+
+	public void setSelectedUser(User selectedUser) {
+		this.selectedUser = selectedUser;
+	}
+	
+	public void deleteUser() {
+		userList.remove(selectedUser);
+		selectedUser = null;
 	}
 
 }

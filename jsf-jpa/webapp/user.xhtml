@@ -17,8 +17,18 @@
 		<p:inputText label="Plz" value="${userBean.newUser.plz}"/>
 		<p:commandButton value="Speichern" actionListener="${userBean.save}" update="messages,userList" />
 	</p:fieldset>
+	
+	<!-- Kontext Menü einfügen -->
+	
+	
+	<p:contextMenu for="userList">
+		<p:menuitem value="Loeschen" update="userList" icon="ui-icon-close" actionListener="#{userBean.deleteUser}"/>
+	</p:contextMenu>
 
-	<p:dataTable id="userList" value="#{userBean.userList}" var="user">
+	<p:dataTable id="userList" value="#{userBean.userList}" var="user"
+		selection="#{userBean.selectedUser}" selectionMode="single"> 	<!-- selected User hinzugefügt -->
+		
+		
 		<p:column>
 			<f:facet name="header">
 				<h:outputText value="User ID"></h:outputText>

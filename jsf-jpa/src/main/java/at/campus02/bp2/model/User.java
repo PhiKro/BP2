@@ -76,9 +76,9 @@ public class User implements Serializable {
 	public void setPlz(int plz) {
 		this.plz = plz;
 	}
-
+/*
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
+	}*/
 	
 }

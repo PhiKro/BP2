@@ -12,7 +12,6 @@
 	<p:fieldset legend="Customer anlegen" style="margin-bottom:20px">
 		<p:inputText label="Firstname" value="${customerBean.newCustomer.firstName}"/>
 		<p:inputText label="Lastname" value="${customerBean.newCustomer.lastName}"/>
-		<p:inputText label="Street" value="${customerBean.newCustomer.street}"/>
 		<p:commandButton value="Speichern" actionListener="${customerBean.save}" update="messages,customerList" />
 	</p:fieldset>
 
