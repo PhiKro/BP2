@@ -25,9 +25,10 @@
 		<p:commandButton value="Speichern" actionListener="${userBean.save}" update="messages,User" />
 	</p:fieldset>
 
-	<p:dataTable id="User" value="#{userBean.userList}" editable="true"  var="user" rowKey="#{user.id}"
-		selection="#{userBean.selectedUser}" selectionMode="single"	paginatorTemplate="{Exporters}"
-                 paginator="true" style="margin-bottom:20px">
+	<p:dataTable id="User" value="#{userBean.userList}" editable="true" 
+		editMode="cell" widgetVar="cellUsers" var="user" rowKey="#{user.id}"
+		selection="#{userBean.selectedUser}" selectionMode="single"	
+		paginatorTemplate="{Exporters}" paginator="true" style="margin-bottom:20px">
 		
 		<!-- paginator="true" rows="10" style="margin-bottom:20px"> 	 selected User hinzugefügt und 10 Einträge pro seite -->
 	
@@ -38,52 +39,69 @@
             </h:commandLink>
         </f:facet>
 	
-		<p:column>
+		<p:ajax event="cellEdit" listener="#{userBean.onCellEdit}" update="User" />
+	
+		<p:column id="userId">
 			<f:facet name="header">
 				<h:outputText value="User ID"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{user.id}"></h:outputText>
+				<h:outputText value="#{user.id}"></h:outputText>
 		</p:column>
 		
-		<p:column>
+		<p:column id="userVorname">
 			<f:facet name="header">
 				<h:outputText value="Vorname"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{user.vorname}"></h:outputText>
+			<p:cellEditor>
+				 <f:facet name="output"><h:outputText value="#{user.vorname}"></h:outputText></f:facet>
+				 <f:facet name="input"><p:inputText value="#{user.vorname}" style="width:96%" label="Vorname"/></f:facet>
+			</p:cellEditor>
 		</p:column>
 		
-		<p:column>
+		<p:column id="userNachname">
 			<f:facet name="header">
 				<h:outputText value="Nachname"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{user.nachname}"></h:outputText>
+			<p:cellEditor>
+				 <f:facet name="output"><h:outputText value="#{user.nachname}"></h:outputText></f:facet>
+				 <f:facet name="input"><p:inputText value="#{user.nachname}" style="width:96%" label="Nachname"/></f:facet>
+			</p:cellEditor>
 		</p:column>
 		
-		<p:column>
+		<p:column id="userStrasse">
 			<f:facet name="header">
 				<h:outputText value="Strasse"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{user.strasse}"></h:outputText>
+			<p:cellEditor>
+				 <f:facet name="output"><h:outputText value="#{user.strasse}"></h:outputText></f:facet>
+				 <f:facet name="input"><p:inputText value="#{user.strasse}" style="width:96%" label="Strasse"/></f:facet>
+			</p:cellEditor>
 		</p:column>
 		
-		<p:column>
+		<p:column id="userAdresse">
 			<f:facet name="header">
 				<h:outputText value="Adresse"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{user.adresse}"></h:outputText>
+			<p:cellEditor>
+				 <f:facet name="output"><h:outputText value="#{user.adresse}"></h:outputText></f:facet>
+				 <f:facet name="input"><p:inputText value="#{user.adresse}" style="width:96%" label="Adresse"/></f:facet>
+			</p:cellEditor>
 		</p:column>
 		
-		<p:column>
+		<p:column id="userPlz">
 			<f:facet name="header">
 				<h:outputText value="Plz"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{user.plz}"></h:outputText>
+			<p:cellEditor>
+				 <f:facet name="output"><h:outputText value="#{user.plz}"></h:outputText></f:facet>
+				 <f:facet name="input"><p:inputText value="#{user.plz}" style="width:96%" label="Plz"/></f:facet>
+			</p:cellEditor>
 		</p:column>
 		
 	</p:dataTable>
 	
 	<!-- Kontext Menü einfügen -->	
-	<p:contextMenu for="User">
+	<p:contextMenu for="User" widgetVar="cMenu">
 		<p:menuitem value="Loeschen" update="messages,User" icon="ui-icon-close" actionListener="#{userBean.deleteUser}"/>
 	</p:contextMenu>
 	

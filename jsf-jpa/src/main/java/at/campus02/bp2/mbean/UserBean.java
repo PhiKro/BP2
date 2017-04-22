@@ -14,6 +14,10 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.primefaces.component.column.Column;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
+
 import at.campus02.bp2.model.User;
 import at.campus02.bp2.utils.EntityManagerFactoryProvider;
 
@@ -50,18 +54,6 @@ public class UserBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde hinzugefuegt" ));
 	}
 	
-	
-	
-	//test
-	
-	//@ManagedProperty("#{userBean}")
-    //private UserBean service;
-
-	
-	//test
-	
-	
-
 	public User getNewUser() {
 		return newUser;
 	}
@@ -96,5 +88,44 @@ public class UserBean {
 		transaction.commit();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde geloescht" ));
 	}
+	
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+        
+        String currentColumn = ((Column)event.getColumn()).getId();
+        
+        if(newValue != null && !newValue.equals(oldValue)) {
+        	
+        	User currentUser = entityManager.find(User.class, Integer.valueOf(event.getRowKey()));
+        	
+        	switch(currentColumn) {
+        	case "userVorname":
+            	currentUser.setVorname(newValue.toString());
+        		break;
+        	case "userNachname":
+            	currentUser.setNachname(newValue.toString());
+        		break;
+        	case "userStrasse":
+            	currentUser.setStrasse(newValue.toString());
+        		break;
+        	case "userAdresse":
+            	currentUser.setAdresse(newValue.toString());
+        		break;
+        	case "userPlz":
+            	currentUser.setPlz((int)newValue);
+        		break;
+        	}
+        	
+    		EntityTransaction transaction = entityManager.getTransaction();
+    		transaction.begin();
+    		entityManager.merge(currentUser);
+    		transaction.commit();
+        	
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);   
+        }
+    }
+
 
 }
