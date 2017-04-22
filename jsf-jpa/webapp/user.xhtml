@@ -6,15 +6,15 @@
                 template="/WEB-INF/template.xhtml">
                 
 	<ui:define name="header">
-		User
+		Userverwaltung
 	</ui:define>
 	
 	<p:fieldset legend="User anlegen" style="margin-bottom:20px">
-		<h:outputText value="Vorname"></h:outputText>
-		<h:outputText value="Nachname"></h:outputText>
-		<h:outputText value="Strasse"></h:outputText>
-		<h:outputText value="Wohnort"></h:outputText>
-		<h:outputText value="PLZ"></h:outputText>
+		<h:outputText value="Vorname   "></h:outputText>
+		<h:outputText value="Nachname   "></h:outputText>
+		<h:outputText value="Strasse   "></h:outputText>
+		<h:outputText value="Wohnort   "></h:outputText>
+		<h:outputText value="PLZ   "></h:outputText>
 		<br/>
 		<p:inputText label="Vorname" value="${userBean.newUser.vorname}"/>
 		<p:inputText label="Nachname" value="${userBean.newUser.nachname}"/>
@@ -22,18 +22,21 @@
 		<p:inputText label="Adresse" value="${userBean.newUser.adresse}"/>
 		<p:inputText label="PlZ" value="${userBean.newUser.plz}"/>
 		
-		<p:commandButton value="Speichern" actionListener="${userBean.save}" update="messages,userList" />
+		<p:commandButton value="Speichern" actionListener="${userBean.save}" update="messages,User" />
 	</p:fieldset>
 
-	<p:dataTable id="userList" value="#{userBean.userList}" editable="true"  var="user" rowKey="#{user.id}"
-		selection="#{userBean.selectedUser}" selectionMode="single">
+	<p:dataTable id="User" value="#{userBean.userList}" editable="true"  var="user" rowKey="#{user.id}"
+		selection="#{userBean.selectedUser}" selectionMode="single"	paginatorTemplate="{Exporters}"
+                 paginator="true" style="margin-bottom:20px">
+		
 		<!-- paginator="true" rows="10" style="margin-bottom:20px"> 	 selected User hinzugefügt und 10 Einträge pro seite -->
 	
-		<f:facet name="header">
-           Row Editing
-       </f:facet>
-		
-	
+		<f:facet name="{Exporters}">
+            <h:commandLink>
+            	<h:outputText label="csv" value="csv export"></h:outputText>
+                <p:dataExporter type="csv" target="User" fileName="UserExport" />
+            </h:commandLink>
+        </f:facet>
 	
 		<p:column>
 			<f:facet name="header">
@@ -80,8 +83,8 @@
 	</p:dataTable>
 	
 	<!-- Kontext Menü einfügen -->	
-	<p:contextMenu for="userList">
-		<p:menuitem value="Loeschen" update="messages,userList" icon="ui-icon-close" actionListener="#{userBean.deleteUser}"/>
+	<p:contextMenu for="User">
+		<p:menuitem value="Loeschen" update="messages,User" icon="ui-icon-close" actionListener="#{userBean.deleteUser}"/>
 	</p:contextMenu>
 	
 </ui:composition>

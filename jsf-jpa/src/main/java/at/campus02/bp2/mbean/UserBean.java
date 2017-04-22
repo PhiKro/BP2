@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -48,6 +49,18 @@ public class UserBean {
 		transaction.commit();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde hinzugefuegt" ));
 	}
+	
+	
+	
+	//test
+	
+	//@ManagedProperty("#{userBean}")
+    //private UserBean service;
+
+	
+	//test
+	
+	
 
 	public User getNewUser() {
 		return newUser;
