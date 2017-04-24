@@ -24,22 +24,24 @@
 		
 		<p:commandButton value="Speichern" actionListener="${userBean.save}" update="messages,User" />
 	</p:fieldset>
-
+	
 	<p:dataTable id="User" value="#{userBean.userList}" editable="true" 
 		editMode="cell" widgetVar="cellUsers" var="user" rowKey="#{user.id}"
 		selection="#{userBean.selectedUser}" selectionMode="single"	
-		paginatorTemplate="{Exporters}" paginator="true" style="margin-bottom:20px">
+		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" paginator="true" style="margin-bottom:20px"
 		
-		<!-- paginator="true" rows="10" style="margin-bottom:20px"> 	 selected User hinzugefügt und 10 Einträge pro seite -->
-	
+		 rows="10"> 	 <!-- selected User hinzugefügt und 10 Einträge pro seite -->
+		
 		<f:facet name="{Exporters}">
             <h:commandLink>
             	<h:outputText label="csv" value="csv export"></h:outputText>
                 <p:dataExporter type="csv" target="User" fileName="UserExport" />
             </h:commandLink>
         </f:facet>
-	
-		<p:ajax event="cellEdit" listener="#{userBean.onCellEdit}" update="User" />
+		
+		<p:ajax event="cellEdit" listener="#{userBean.onCellEdit}" update=":j_idt8:messages,User" />
+		
+		
 	
 		<p:column id="userId">
 			<f:facet name="header">
