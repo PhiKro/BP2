@@ -27,7 +27,7 @@
 	
 	<p:dataTable id="User" value="#{userBean.userList}" editable="true" 
 		editMode="cell" widgetVar="cellUsers" var="user" rowKey="#{user.id}"
-		selection="#{userBean.selectedUser}" selectionMode="single"	
+		selection="#{userBean.selectedUser}" selectionMode="multi"	
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" paginator="true" style="margin-bottom:20px"
 		
 		 rows="10"> 	 <!-- selected User hinzugefügt und 10 Einträge pro seite -->
