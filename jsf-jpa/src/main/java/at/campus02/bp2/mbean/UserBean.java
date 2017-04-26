@@ -30,7 +30,7 @@ public class UserBean {
 	
 	private User newUser = new User();
 	private List<User> userList = new ArrayList<User>();
-	private User selectedUser;
+	private List<User> selectedUser;
 
 	@PostConstruct
 	public void createEntityManager() {
@@ -72,11 +72,12 @@ public class UserBean {
 	}
 	
 	//SelectedUser auswaehlen und loeschen
-	public User getSelectedUser() {
+	public List<User> getSelectedUser() {
 		return selectedUser;
 	}
 
-	public void setSelectedUser(User selectedUser) {
+	public void setSelectedUser(List<User> selectedUser) {
+		//this.selectedUser.add(selectedUser);
 		this.selectedUser = selectedUser;
 	}
 	
@@ -84,7 +85,10 @@ public class UserBean {
 		
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		entityManager.remove(selectedUser);
+		for(User u : selectedUser)
+		{
+			entityManager.remove(u);
+		}
 		transaction.commit();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der User " + newUser.getNachname() + " wurde geloescht" ));
 	}
