@@ -5,24 +5,69 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
                 
+    <p:tabMenu activeIndex="#{param.i}">
+	    <p:menuitem value="Overview" outcome="index.xhtml" icon="ui-icon-star">
+	        <f:param name="i" value="0" />
+	    </p:menuitem>
+	    
+	    <p:menuitem value="Userverwaltung" outcome="user.xhtml" icon="ui-icon-search">
+	        <f:param name="i" value="1" />
+	    </p:menuitem>
+	</p:tabMenu>
+	<br/>
+     
+   
+                
+                
 	<ui:define name="header">
-		Userverwaltung
+		
 	</ui:define>
 	
 	<p:fieldset legend="User anlegen" style="margin-bottom:20px">
-		<h:outputText value="Vorname   "></h:outputText>
-		<h:outputText value="Nachname   "></h:outputText>
-		<h:outputText value="Strasse   "></h:outputText>
-		<h:outputText value="Wohnort   "></h:outputText>
+		
+		
+    <style type="text/css">
+      
+      
+      .spalte2 {
+     
+      margin-left:125px;
+      }
+      .label {
+      margin-left:69px;
+      }
+      .beschriftung{
+     display:inline-block; width: 150px;
+      }
+      
+      
+    </style>
+
+		
+		
+		
+		<h:outputText class="beschriftung" value="Vorname"></h:outputText>
+		<h:outputText class="spalte2" value="Nachname"></h:outputText>
+		<br/>
+		
+		<p:inputText label="Vorname" value="${userBean.newUser.vorname}"/>
+		<p:inputText class="label" label="Nachname" value="${userBean.newUser.nachname}"/>
+		<br/>
+		
+		<h:outputText class="beschriftung" value="Strasse   "></h:outputText>
+		<h:outputText class="spalte2" value="Wohnort   "></h:outputText>
+		<br/>
+		
+		<p:inputText label="Strasse" value="${userBean.newUser.strasse}"/>
+		<p:inputText class="label" label="Adresse" value="${userBean.newUser.adresse}"/>
+		<br/>
+		
 		<h:outputText value="PLZ   "></h:outputText>
 		<br/>
-		<p:inputText label="Vorname" value="${userBean.newUser.vorname}"/>
-		<p:inputText label="Nachname" value="${userBean.newUser.nachname}"/>
-		<p:inputText label="Strasse" value="${userBean.newUser.strasse}"/>
-		<p:inputText label="Adresse" value="${userBean.newUser.adresse}"/>
 		<p:inputText label="PlZ" value="${userBean.newUser.plz}"/>
 		
-		<p:commandButton value="Speichern" actionListener="${userBean.save}" update="messages,User" />
+		<p:commandButton class="label" value="Speichern" actionListener="${userBean.save}" update="messages,User" />
+	
 	</p:fieldset>
 	
 	<p:dataTable id="User" value="#{userBean.userList}" editable="true" 

@@ -6,44 +6,22 @@
                 template="/WEB-INF/template.xhtml">
                 
    
+    <p:tabMenu activeIndex="#{param.i}">
+	    <p:menuitem value="Overview" outcome="index.xhtml" icon="ui-icon-star">
+	        <f:param name="i" value="0" />
+	    </p:menuitem>
+    
+	    <p:menuitem value="Userverwaltung" outcome="user.xhtml" icon="ui-icon-search">
+	        <f:param name="i" value="1" />
+	    </p:menuitem>
+	</p:tabMenu>
      
    
-   
-   
-   
 	<h:head>
-		<title>Hello - My First Application</title>
+		
 	</h:head>
 		<h:body>
-			Hello World!
-			
-			
-			<p:commandLink action="user.xhtml" ajax="false" immediate="true" value="click_it"/>
 			
 		</h:body>
 
-	<ui:define name="header">
-		User
-	</ui:define>
-	
-	<p:fieldset legend="User anlegen" style="margin-bottom:20px">
-		<p:inputText label="Artikelname" value="${articleBean.newArticle.name}"/>
-		<p:commandButton value="Speichern" actionListener="${articleBean.save}" update="messages,articleList" />
-	</p:fieldset>
-
-	<p:dataTable id="articleList" value="#{articleBean.articleList}" var="article">
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Artikelnummer"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{article.id}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Bezeichnung"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{article.name}"></h:outputText>
-		</p:column>
-	</p:dataTable>
-	
 </ui:composition>
