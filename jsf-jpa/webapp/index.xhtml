@@ -4,22 +4,40 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
-                
+             
     <style type="text/css">
-      .text{
-      font-size:22px;
-      text-align:center;
-      margin-top:150px;
+      .text
+      {
+      	font-size:22px;
+      	text-align:center;
+      	margin-top:150px;
       }
       
-      .text img{
-      border-style: solid;
-     border-width: 5px;
-     width:800px;
+      .text img
+      {
+      	border-style: solid;
+     	border-width: 5px;
+     	width:800px;
       }
       
+      #headline
+      {
+      	font-family:Trebuchet MS;
+      	color:#19bbd5;
+      }
+       #bild
+      {
+      	float:right;
+      	margin-top:5px;
+      }
     </style>
    
+   	<ui:define name="header"> 
+		<div id="headline">
+			MyContract
+			<img id="bild" src="http://www.obstbau-weiss.at/images/mycontract.png" alt="MyContract" height="42" ></img>
+		</div>
+ 	</ui:define> 
    
     <p:tabMenu activeIndex="#{param.i}">
 	    <p:menuitem value="Overview" outcome="index.xhtml" icon="ui-icon-star">
