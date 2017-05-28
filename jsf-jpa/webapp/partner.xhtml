@@ -93,7 +93,7 @@
 
  	<p:dataTable id="Partner" value="#{partnerBean.partnerList}" editable="true"  
  		editMode="cell" widgetVar="cellPartners" var="partner" rowKey="#{partner.id}" 
- 		selection="#{partnerBean.selectedPartner}" selectionMode="multi"	 
+ 		selection="#{partnerBean.selectedPartner}" selectionMode="multi" rows="10" 
  		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" paginator="true" style="margin-bottom:20px" 
 		rowsPerPageTemplate="10,20,30,40,50">
  		 

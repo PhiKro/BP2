@@ -126,7 +126,7 @@ public class UserBean {
     		entityManager.merge(currentUser);
     		transaction.commit();
         	
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Feld geaendert", "Alt: " + oldValue + ", Neu: " + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);   
         }
     }

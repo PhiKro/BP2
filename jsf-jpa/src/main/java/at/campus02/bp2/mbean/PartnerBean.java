@@ -127,7 +127,7 @@ public class PartnerBean {
     		entityManager.merge(currentPartner);
     		transaction.commit();
         	
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Feld geaendert", "Alt: " + oldValue + ", Neu: " + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);   
         }
     }
