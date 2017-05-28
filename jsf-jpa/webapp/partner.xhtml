@@ -81,7 +81,7 @@
 		<p:inputText class="labeleingabe" label="Adresse" value="${partnerBean.newPartner.adresse}"/> 
 		<br/>
 		
- 		<h:outputText value="PLZ   "></h:outputText> 
+ 		<h:outputText value="PLZ"></h:outputText> 
  		<br/> 
 
  		<p:inputText label="PlZ" value="${partnerBean.newPartner.plz}"/> 
@@ -124,18 +124,12 @@
  		</p:column> 
 
  		<p:column id="PartnerPremiumstatus" headerText="Status"> 
- 		<p:cellEditor>
- 		
  			<f:facet name="header"> 
  				<h:outputText value="Premiumstatus"></h:outputText> 
  			</f:facet> 
- 		 
+ 		 	<p:cellEditor>
  				 <f:facet name="output"><h:outputText value="#{partner.premiumstatus}"></h:outputText></f:facet> 
- 				 <f:facet name="input">
- 				 	<h:selectOneMenu value="#{partner.premiumstatus}" style="width:100%">
- 				 		<f:selectItems value="#{partner.premiumstatus}" var="premiumstatus" itemLabel="#{premiumstatus}" itemValue="#{premiumstatus}"></f:selectItems>
- 				 	</h:selectOneMenu>
- 				 </f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{partner.premiumstatus}" style="width:96%" label="Premiumstatus"/></f:facet> 
  			</p:cellEditor> 
  		</p:column> 
  		 

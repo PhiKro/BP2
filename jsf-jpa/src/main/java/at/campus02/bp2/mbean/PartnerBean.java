@@ -2,6 +2,7 @@ package at.campus02.bp2.mbean;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,9 +32,6 @@ public class PartnerBean {
 	private Partner newPartner = new Partner();
 	private List<Partner> partnerList = new ArrayList<Partner>();
 	private List<Partner> selectedPartner;
-	
-
-	
 
 	@PostConstruct
 	public void createEntityManager() {
@@ -44,7 +42,7 @@ public class PartnerBean {
 	public void closeEntityManager() {
 		entityManager.close();
 	}
-	
+
 	public void loadPartnerFromDB(){
 		partnerList = entityManager.createQuery("from Partner", Partner.class).getResultList();
 	}
@@ -74,13 +72,13 @@ public class PartnerBean {
 		this.partnerList = partnerList;
 	}
 	
-	//SelectedUser auswaehlen und loeschen
+	//SelectedPartner auswaehlen und loeschen
 	public List<Partner> getSelectedPartner() {
 		return selectedPartner;
 	}
 
-	public void setSelectedUser(List<Partner> selectedPartner) {
-		//this.selectedUser.add(selectedPartner);
+	public void setSelectedPartner(List<Partner> selectedPartner) {
+		//this.selectedPartner.add(selectedPartner);
 		this.selectedPartner = selectedPartner;
 	}
 	
@@ -109,6 +107,9 @@ public class PartnerBean {
         	switch(currentColumn) {
         	case "partnerFirmenname":
             	currentPartner.setFirmenname(newValue.toString());
+        		break;
+        	case "partnerPremiumstatus":
+            	currentPartner.setPremiumstatus(newValue.toString());
         		break;
         	case "partnerStrasse":
             	currentPartner.setStrasse(newValue.toString());

@@ -79,12 +79,12 @@ public class Partner implements Serializable {
 		return serialVersionUID;
 	}
 
-	
-	 public String getPremiumstatus() { return premiumstatus; }
+	public String getPremiumstatus() {
+		return premiumstatus;
+	}
 	  
-	 public void setPremiumstatus(String premiumstatus) {
-	 this.premiumstatus = premiumstatus; 
-	 }
-	 
+	public void setPremiumstatus(String premiumstatus) {
+		this.premiumstatus = premiumstatus; 
+	} 
 
 }
