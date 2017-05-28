@@ -36,6 +36,7 @@
       	float:right;
       	margin-top:5px;
       }
+      
     </style>
           
      <ui:define name="header"> 
@@ -60,7 +61,6 @@
 	</p:tabMenu>
 	<br/>
                   
- 	 
  	<p:fieldset legend="Partner anlegen" style="margin-bottom:20px"> 
  		<h:outputText class="beschriftung" value="Firmenname"></h:outputText> 
  		<h:outputText class="spalte2" value="Premiumstatus"></h:outputText> 
@@ -95,12 +95,12 @@
  		editMode="cell" widgetVar="cellPartners" var="partner" rowKey="#{partner.id}" 
  		selection="#{partnerBean.selectedPartner}" selectionMode="multi"	 
  		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" paginator="true" style="margin-bottom:20px" 
-		rowsPerPageTemplate="10,20,30,40,50"> 	 <!-- selected User hinzugefügt und 10 Einträge pro seite --> 
+		rowsPerPageTemplate="10,20,30,40,50">
  		 
  		<f:facet name="{Exporters}"> 
              <h:commandLink class="csv"> 
              	<h:outputText label="csv" value="csv export"></h:outputText> 
-                 <p:dataExporter type="csv" target="Partner" fileName="PartnerExport" /> 
+                <p:dataExporter type="csv" target="Partner" fileName="PartnerExport" /> 
              </h:commandLink> 
          </f:facet> 
  		 
@@ -122,17 +122,22 @@
  				 <f:facet name="input"><p:inputText value="#{partner.firmenname}" style="width:96%" label="Firmenname"/></f:facet> 
  			</p:cellEditor> 
  		</p:column> 
-
+ 	
  		<p:column id="PartnerPremiumstatus" headerText="Status"> 
  			<f:facet name="header"> 
  				<h:outputText value="Premiumstatus"></h:outputText> 
  			</f:facet> 
  		 	<p:cellEditor>
  				 <f:facet name="output"><h:outputText value="#{partner.premiumstatus}"></h:outputText></f:facet> 
- 				 <f:facet name="input"><p:inputText value="#{partner.premiumstatus}" style="width:96%" label="Premiumstatus"/></f:facet> 
+ 				 <f:facet name="input">
+ 					<h:selectOneMenu  id="partnerPremiumstatus" label="Premiumstatus" value="#{partner.premiumstatus}"> 
+ 						<f:selectItem itemLabel="Ja" itemValue="Ja" />
+ 						<f:selectItem itemLabel="Nein" itemValue="Nein" />
+ 					</h:selectOneMenu> 
+ 				</f:facet>
  			</p:cellEditor> 
  		</p:column> 
- 		 
+		 
  		<p:column id="partnerStrasse"> 
  			<f:facet name="header"> 
  				<h:outputText value="Strasse"></h:outputText> 
