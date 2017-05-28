@@ -1,0 +1,179 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                 xmlns:ui="http://java.sun.com/jsf/facelets" 
+                 xmlns:h="http://java.sun.com/jsf/html" 
+                 xmlns:f="http://java.sun.com/jsf/core" 
+                 xmlns:p="http://primefaces.org/ui" 
+                template="/WEB-INF/template.xhtml"> 
+    
+    <style type="text/css">
+      
+      .spalte2 
+      {
+      	margin-left:125px;
+      }
+      
+      .labeleingabe
+      {
+      	margin-left:69px;
+      }
+      .beschriftung
+      {
+     	display:inline-block; width: 150px;
+      }
+      .csv
+      {
+      	float:right;
+     	margin-right:10px;
+      } 
+      #headline
+      {
+      	font-family:Trebuchet MS;
+      	color:#19bbd5;
+      	
+      }
+      #bild
+      {
+      	float:right;
+      	margin-top:5px;
+      }
+    </style>
+          
+     <ui:define name="header"> 
+		<div id="headline">
+			MyContract
+			<img id="bild" src="http://www.obstbau-weiss.at/images/mycontract.png" alt="MyContract" height="42" ></img>
+		</div>
+ 	</ui:define> 
+                 
+     <p:tabMenu activeIndex="#{param.i}">
+	    <p:menuitem value="Overview" outcome="index.xhtml" icon="ui-icon-star">
+	        <f:param name="i" value="0" />
+	    </p:menuitem>
+	   
+	    <p:menuitem value="Userverwaltung" outcome="user.xhtml" icon="ui-icon-search">
+	        <f:param name="i" value="1" />
+	    </p:menuitem>
+	    
+	    <p:menuitem value="Partnerverwaltung" outcome="partner.xhtml" icon="ui-icon-search">
+	        <f:param name="i" value="2" />
+	    </p:menuitem>
+	</p:tabMenu>
+	<br/>
+                  
+ 	 
+ 	<p:fieldset legend="Partner anlegen" style="margin-bottom:20px"> 
+ 		<h:outputText class="beschriftung" value="Firmenname"></h:outputText> 
+ 		<h:outputText class="spalte2" value="Premiumstatus"></h:outputText> 
+ 		<br/>
+ 		
+ 		<p:inputText label="Firmenname" value="${partnerBean.newPartner.firmenname}"/> 
+ 		<p:selectOneMenu class="labeleingabe" id="Premiumstatus" label="Premiumstatus" value="${partnerBean.newPartner.premiumstatus}"> 
+ 			<f:selectItem itemLabel="Ja" itemValue="Ja" />
+ 			<f:selectItem itemLabel="Nein" itemValue="Nein" />
+ 		</p:selectOneMenu> 
+ 		<br/>
+ 		
+ 		<h:outputText class="beschriftung" value="Strasse"></h:outputText> 
+ 		<h:outputText class="spalte2" value="Wohnort"></h:outputText> 
+ 		<br/>
+ 		
+ 		<p:inputText label="Strasse" value="${partnerBean.newPartner.strasse}"/> 
+		<p:inputText class="labeleingabe" label="Adresse" value="${partnerBean.newPartner.adresse}"/> 
+		<br/>
+		
+ 		<h:outputText value="PLZ   "></h:outputText> 
+ 		<br/> 
+
+ 		<p:inputText label="PlZ" value="${partnerBean.newPartner.plz}"/> 
+
+ 		<p:commandButton class="labeleingabe" value="Speichern" actionListener="${partnerBean.save}" update="messages,Partner" /> 
+
+ 	</p:fieldset> 
+ 	 
+
+ 	<p:dataTable id="Partner" value="#{partnerBean.partnerList}" editable="true"  
+ 		editMode="cell" widgetVar="cellPartners" var="partner" rowKey="#{partner.id}" 
+ 		selection="#{partnerBean.selectedPartner}" selectionMode="multi"	 
+ 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" paginator="true" style="margin-bottom:20px" 
+		rowsPerPageTemplate="10,20,30,40,50"> 	 <!-- selected User hinzugefügt und 10 Einträge pro seite --> 
+ 		 
+ 		<f:facet name="{Exporters}"> 
+             <h:commandLink class="csv"> 
+             	<h:outputText label="csv" value="csv export"></h:outputText> 
+                 <p:dataExporter type="csv" target="Partner" fileName="PartnerExport" /> 
+             </h:commandLink> 
+         </f:facet> 
+ 		 
+ 		<p:ajax event="cellEdit" listener="#{partnerBean.onCellEdit}" update=":j_idt8:messages,Partner" /> 
+ 		 
+ 		<p:column id="partnerId"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Partner ID"></h:outputText> 
+			</f:facet> 
+ 				<h:outputText value="#{partner.id}"></h:outputText> 
+ 		</p:column> 
+
+ 		<p:column id="partnerFirmenname"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Firmenname"></h:outputText> 
+ 			</f:facet> 
+ 			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{partner.firmenname}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{partner.firmenname}" style="width:96%" label="Firmenname"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+
+ 		<p:column id="PartnerPremiumstatus" headerText="Status"> 
+ 		<p:cellEditor>
+ 		
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Premiumstatus"></h:outputText> 
+ 			</f:facet> 
+ 		 
+ 				 <f:facet name="output"><h:outputText value="#{partner.premiumstatus}"></h:outputText></f:facet> 
+ 				 <f:facet name="input">
+ 				 	<h:selectOneMenu value="#{partner.premiumstatus}" style="width:100%">
+ 				 		<f:selectItems value="#{partner.premiumstatus}" var="premiumstatus" itemLabel="#{premiumstatus}" itemValue="#{premiumstatus}"></f:selectItems>
+ 				 	</h:selectOneMenu>
+ 				 </f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+ 		 
+ 		<p:column id="partnerStrasse"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Strasse"></h:outputText> 
+ 			</f:facet> 
+			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{partner.strasse}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{partner.strasse}" style="width:96%" label="Strasse"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+	 
+ 		<p:column id="partnerAdresse"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Adresse"></h:outputText> 
+ 			</f:facet> 
+ 			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{partner.adresse}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{partner.adresse}" style="width:96%" label="Adresse"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+ 		 
+		<p:column id="partnerPlz"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Plz"></h:outputText> 
+ 			</f:facet> 
+ 			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{partner.plz}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{partner.plz}" style="width:96%" label="Plz"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+ 		 
+ 	</p:dataTable> 
+ 	 
+ 	<!-- Kontext Menü einfügen -->	 
+ 	<p:contextMenu for="Partner" widgetVar="cMenu"> 
+ 		<p:menuitem value="Loeschen" update="messages,Partner" icon="ui-icon-close" actionListener="#{partnerBean.deletePartner}"/> 
+ 	</p:contextMenu> 
+
+ </ui:composition> 
