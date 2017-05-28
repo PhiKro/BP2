@@ -5,6 +5,21 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
                 
+    <style type="text/css">
+      .text{
+      font-size:22px;
+      text-align:center;
+      margin-top:150px;
+      }
+      
+      .text img{
+      border-style: solid;
+     border-width: 5px;
+     width:800px;
+      }
+      
+    </style>
+   
    
     <p:tabMenu activeIndex="#{param.i}">
 	    <p:menuitem value="Overview" outcome="index.xhtml" icon="ui-icon-star">
@@ -21,7 +36,11 @@
 		
 	</h:head>
 		<h:body>
-			
-		</h:body>
+		<div class="text">
+		<p>Willkommen auf der User und Partnerverwaltung von MyContract</p>
+		<p>Um durch die Datenbanken zu Navigieren bitte auf die Reiter klicken</p>
+		<img src="https://thumbs.dreamstime.com/z/einhorn-und-regenbogen-39768832.jpg" alt="let the magic happen" />
+		</div>
+			</h:body>
 
 </ui:composition>

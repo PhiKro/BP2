@@ -1,156 +1,158 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-  
-                
-    <p:tabMenu activeIndex="#{param.i}">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                 xmlns:ui="http://java.sun.com/jsf/facelets" 
+                 xmlns:h="http://java.sun.com/jsf/html" 
+                 xmlns:f="http://java.sun.com/jsf/core" 
+                 xmlns:p="http://primefaces.org/ui" 
+                template="/WEB-INF/template.xhtml"> 
+    
+    <style type="text/css">
+      
+      .spalte2 
+      {
+      	margin-left:125px;
+      }
+      
+      .labeleingabe
+      {
+      	margin-left:69px;
+      }
+      .beschriftung
+      {
+     	display:inline-block; width: 150px;
+      }
+      .csv
+      {
+      	float:right;
+     	margin-right:10px;
+      } 
+      #headline
+      {
+      	font-family:Trebuchet MS;
+      }
+    </style>
+          
+     <ui:define name="header"> 
+		<div id="headline">
+			MyContract
+		</div>
+ 	</ui:define> 
+                 
+     <p:tabMenu activeIndex="#{param.i}">
 	    <p:menuitem value="Overview" outcome="index.xhtml" icon="ui-icon-star">
 	        <f:param name="i" value="0" />
 	    </p:menuitem>
-	    
+	   
 	    <p:menuitem value="Userverwaltung" outcome="user.xhtml" icon="ui-icon-search">
 	        <f:param name="i" value="1" />
 	    </p:menuitem>
 	</p:tabMenu>
 	<br/>
-     
-   
-                
-                
-	<ui:define name="header">
+                  
+ 	 
+ 	<p:fieldset legend="User anlegen" style="margin-bottom:20px"> 
+ 		<h:outputText class="beschriftung" value="Vorname"></h:outputText> 
+ 		<h:outputText class="spalte2" value="Nachname"></h:outputText> 
+ 		<br/>
+ 		
+ 		<p:inputText label="Vorname" value="${userBean.newUser.vorname}"/> 
+ 		<p:inputText class="labeleingabe" label="Nachname" value="${userBean.newUser.nachname}"/> 
+ 		<br/>
+ 		
+ 		<h:outputText class="beschriftung" value="Strasse"></h:outputText> 
+ 		<h:outputText class="spalte2" value="Wohnort"></h:outputText> 
+ 		<br/>
+ 		
+ 		<p:inputText label="Strasse" value="${userBean.newUser.strasse}"/> 
+		<p:inputText class="labeleingabe" label="Adresse" value="${userBean.newUser.adresse}"/> 
+		<br/>
 		
-	</ui:define>
-	
-	<p:fieldset legend="User anlegen" style="margin-bottom:20px">
-		
-		
-    <style type="text/css">
-      
-      
-      .spalte2 {
-     
-      margin-left:125px;
-      }
-      .label {
-      margin-left:69px;
-      }
-      .beschriftung{
-     display:inline-block; width: 150px;
-      }
-      
-      
-    </style>
+ 		<h:outputText value="PLZ   "></h:outputText> 
+ 		<br/> 
 
-		
-		
-		
-		<h:outputText class="beschriftung" value="Vorname"></h:outputText>
-		<h:outputText class="spalte2" value="Nachname"></h:outputText>
-		<br/>
-		
-		<p:inputText label="Vorname" value="${userBean.newUser.vorname}"/>
-		<p:inputText class="label" label="Nachname" value="${userBean.newUser.nachname}"/>
-		<br/>
-		
-		<h:outputText class="beschriftung" value="Strasse   "></h:outputText>
-		<h:outputText class="spalte2" value="Wohnort   "></h:outputText>
-		<br/>
-		
-		<p:inputText label="Strasse" value="${userBean.newUser.strasse}"/>
-		<p:inputText class="label" label="Adresse" value="${userBean.newUser.adresse}"/>
-		<br/>
-		
-		<h:outputText value="PLZ   "></h:outputText>
-		<br/>
-		<p:inputText label="PlZ" value="${userBean.newUser.plz}"/>
-		
-		<p:commandButton class="label" value="Speichern" actionListener="${userBean.save}" update="messages,User" />
-	
-	</p:fieldset>
-	
-	<p:dataTable id="User" value="#{userBean.userList}" editable="true" 
-		editMode="cell" widgetVar="cellUsers" var="user" rowKey="#{user.id}"
-		selection="#{userBean.selectedUser}" selectionMode="multi"	
-		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" paginator="true" style="margin-bottom:20px"
-		
-		 rows="10"> 	 <!-- selected User hinzugefügt und 10 Einträge pro seite -->
-		
-		<f:facet name="{Exporters}">
-            <h:commandLink>
-            	<h:outputText label="csv" value="csv export"></h:outputText>
-                <p:dataExporter type="csv" target="User" fileName="UserExport" />
-            </h:commandLink>
-        </f:facet>
-		
-		<p:ajax event="cellEdit" listener="#{userBean.onCellEdit}" update=":j_idt8:messages,User" />
-		
-		
-	
-		<p:column id="userId">
-			<f:facet name="header">
-				<h:outputText value="User ID"></h:outputText>
-			</f:facet>
-				<h:outputText value="#{user.id}"></h:outputText>
-		</p:column>
-		
-		<p:column id="userVorname">
-			<f:facet name="header">
-				<h:outputText value="Vorname"></h:outputText>
-			</f:facet>
-			<p:cellEditor>
-				 <f:facet name="output"><h:outputText value="#{user.vorname}"></h:outputText></f:facet>
-				 <f:facet name="input"><p:inputText value="#{user.vorname}" style="width:96%" label="Vorname"/></f:facet>
-			</p:cellEditor>
-		</p:column>
-		
-		<p:column id="userNachname">
-			<f:facet name="header">
-				<h:outputText value="Nachname"></h:outputText>
-			</f:facet>
-			<p:cellEditor>
-				 <f:facet name="output"><h:outputText value="#{user.nachname}"></h:outputText></f:facet>
-				 <f:facet name="input"><p:inputText value="#{user.nachname}" style="width:96%" label="Nachname"/></f:facet>
-			</p:cellEditor>
-		</p:column>
-		
-		<p:column id="userStrasse">
-			<f:facet name="header">
-				<h:outputText value="Strasse"></h:outputText>
-			</f:facet>
-			<p:cellEditor>
-				 <f:facet name="output"><h:outputText value="#{user.strasse}"></h:outputText></f:facet>
-				 <f:facet name="input"><p:inputText value="#{user.strasse}" style="width:96%" label="Strasse"/></f:facet>
-			</p:cellEditor>
-		</p:column>
-		
-		<p:column id="userAdresse">
-			<f:facet name="header">
-				<h:outputText value="Adresse"></h:outputText>
-			</f:facet>
-			<p:cellEditor>
-				 <f:facet name="output"><h:outputText value="#{user.adresse}"></h:outputText></f:facet>
-				 <f:facet name="input"><p:inputText value="#{user.adresse}" style="width:96%" label="Adresse"/></f:facet>
-			</p:cellEditor>
-		</p:column>
-		
-		<p:column id="userPlz">
-			<f:facet name="header">
-				<h:outputText value="Plz"></h:outputText>
-			</f:facet>
-			<p:cellEditor>
-				 <f:facet name="output"><h:outputText value="#{user.plz}"></h:outputText></f:facet>
-				 <f:facet name="input"><p:inputText value="#{user.plz}" style="width:96%" label="Plz"/></f:facet>
-			</p:cellEditor>
-		</p:column>
-		
-	</p:dataTable>
-	
-	<!-- Kontext Menü einfügen -->	
-	<p:contextMenu for="User" widgetVar="cMenu">
-		<p:menuitem value="Loeschen" update="messages,User" icon="ui-icon-close" actionListener="#{userBean.deleteUser}"/>
-	</p:contextMenu>
-	
-</ui:composition>
+ 		<p:inputText label="PlZ" value="${userBean.newUser.plz}"/> 
+
+ 		<p:commandButton class="labeleingabe" value="Speichern" actionListener="${userBean.save}" update="messages,User" /> 
+
+ 	</p:fieldset> 
+ 	 
+
+ 	<p:dataTable id="User" value="#{userBean.userList}" editable="true"  
+ 		editMode="cell" widgetVar="cellUsers" var="user" rowKey="#{user.id}" 
+ 		selection="#{userBean.selectedUser}" selectionMode="multi"	 
+ 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" paginator="true" style="margin-bottom:20px" 
+		rows="10"> 	 <!-- selected User hinzugefügt und 10 Einträge pro seite --> 
+ 		 
+ 		<f:facet name="{Exporters}"> 
+             <h:commandLink class="csv"> 
+             	<h:outputText label="csv" value="csv export"></h:outputText> 
+                 <p:dataExporter type="csv" target="User" fileName="UserExport" /> 
+             </h:commandLink> 
+         </f:facet> 
+ 		 
+ 		<p:ajax event="cellEdit" listener="#{userBean.onCellEdit}" update=":j_idt8:messages,User" /> 
+ 		 
+ 		<p:column id="userId"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="User ID"></h:outputText> 
+			</f:facet> 
+ 				<h:outputText value="#{user.id}"></h:outputText> 
+ 		</p:column> 
+
+ 		<p:column id="userVorname"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Vorname"></h:outputText> 
+ 			</f:facet> 
+ 			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{user.vorname}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{user.vorname}" style="width:96%" label="Vorname"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+
+ 		<p:column id="userNachname"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Nachname"></h:outputText> 
+ 			</f:facet> 
+ 			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{user.nachname}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{user.nachname}" style="width:96%" label="Nachname"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+ 		 
+ 		<p:column id="userStrasse"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Strasse"></h:outputText> 
+ 			</f:facet> 
+			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{user.strasse}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{user.strasse}" style="width:96%" label="Strasse"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+	 
+ 		<p:column id="userAdresse"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Adresse"></h:outputText> 
+ 			</f:facet> 
+ 			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{user.adresse}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{user.adresse}" style="width:96%" label="Adresse"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+ 		 
+		<p:column id="userPlz"> 
+ 			<f:facet name="header"> 
+ 				<h:outputText value="Plz"></h:outputText> 
+ 			</f:facet> 
+ 			<p:cellEditor> 
+ 				 <f:facet name="output"><h:outputText value="#{user.plz}"></h:outputText></f:facet> 
+ 				 <f:facet name="input"><p:inputText value="#{user.plz}" style="width:96%" label="Plz"/></f:facet> 
+ 			</p:cellEditor> 
+ 		</p:column> 
+ 		 
+ 	</p:dataTable> 
+ 	 
+ 	<!-- Kontext Menü einfügen -->	 
+ 	<p:contextMenu for="User" widgetVar="cMenu"> 
+ 		<p:menuitem value="Loeschen" update="messages,User" icon="ui-icon-close" actionListener="#{userBean.deleteUser}"/> 
+ 	</p:contextMenu> 
+
+ </ui:composition> 
