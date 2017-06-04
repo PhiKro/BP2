@@ -13,10 +13,19 @@
       	margin-top:50px;
       }
       
-      #chartsicht
+      #chartsichtUser
       {
-      	width:300px;
-     	margin:0px auto;
+      	width:500px;
+     	margin-left:12px;
+     	
+      }
+       #chartsichtPartner
+      {
+      	width:500px;
+     	margin-top:-300px;
+     	margin:-300px 120px auto auto;
+     	float:right;
+     
       }
       
       #headline
@@ -61,9 +70,13 @@
 		<p>Willkommen auf der User und Partnerverwaltung von MyContract</p>
 		<p>Um durch die Datenbanken zu Navigieren bitte auf die Reiter klicken</p>
 		
-		<div id="chartsicht">
+		<div id="chartsichtUser">
+		<p:chart type="metergauge" model="#{chartViewUser.meterGaugeModel}" style="width:500px;" />
+		</div>
+		
+		<div id="chartsichtPartner">
 		<h:panelGrid>
-			<p:chart  type="bar" model="#{chartView.animatedModel}" style="width:400px;" border-style="solid" />
+			<p:chart  type="bar" model="#{chartView.animatedModel}" style="width:500px;" />
 		</h:panelGrid>
 		</div>
 		

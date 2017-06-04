@@ -18,6 +18,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.CellEditEvent;
 
+import at.campus02.bp2.model.Partner;
 import at.campus02.bp2.model.User;
 import at.campus02.bp2.utils.EntityManagerFactoryProvider;
 
@@ -44,6 +45,17 @@ public class UserBean {
 	
 	public void loadUserFromDB(){
 		userList = entityManager.createQuery("from User", User.class).getResultList();
+	}
+	
+	public List<User> getDatafromDB() {
+		if(entityManager == null){
+			entityManager = EntityManagerFactoryProvider.get().createEntityManager();
+		}
+	
+		List<User> p_list = entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+		
+	
+		return p_list;
 	}
 	
 	public void save() {
@@ -131,5 +143,19 @@ public class UserBean {
         }
     }
 
+    private int userGesamt;
+    
+    private void getUserSize() {
+    	userGesamt = 0;
+    	
+    	List<User> this_partnerlist = getDatafromDB();
+    	
+		userGesamt = this_partnerlist.size();
+    }
+
+	public int getUserGesamt() {
+		getUserSize();
+		return userGesamt;
+	}
 
 }
