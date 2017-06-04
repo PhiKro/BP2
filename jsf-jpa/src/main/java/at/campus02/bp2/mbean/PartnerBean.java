@@ -3,6 +3,7 @@ package at.campus02.bp2.mbean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -44,8 +45,22 @@ public class PartnerBean {
 	}
 
 	public void loadPartnerFromDB(){
-		partnerList = entityManager.createQuery("from Partner", Partner.class).getResultList();
+		partnerList = entityManager.createQuery("SELECT p FROM Partner p", Partner.class).getResultList();
+		
 	}
+	
+	public List<Partner> getDatafromDB() {
+		if(entityManager == null){
+			entityManager = EntityManagerFactoryProvider.get().createEntityManager();
+		}
+	
+		List<Partner> p_list = entityManager.createQuery("SELECT p FROM Partner p", Partner.class).getResultList();
+		
+	
+		return p_list;
+	}
+	
+
 	
 	public void save() {
 		EntityTransaction transaction = entityManager.getTransaction();
@@ -131,4 +146,35 @@ public class PartnerBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);   
         }
     }
+    
+    private int counterJa;
+	private int counterNein;
+    
+    private void getPremiumstatusChart() {
+    	counterJa = 0;
+    	counterNein = 0;
+    	
+    	List<Partner> this_partnerlist = getDatafromDB();
+    	
+		for (Partner partner : this_partnerlist) {
+			if(partner.getPremiumstatus().equals("Ja")) {
+				counterJa++;
+			}
+			else {
+				counterNein++;
+			}
+		}
+    }
+
+	public int getCounterJa() {
+		getPremiumstatusChart();
+		return counterJa;
+	}
+
+	public int getCounterNein() {
+		getPremiumstatusChart();
+		return counterNein;
+	}
+    
+    
 }

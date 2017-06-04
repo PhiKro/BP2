@@ -10,14 +10,13 @@
       {
       	font-size:22px;
       	text-align:center;
-      	margin-top:150px;
+      	margin-top:50px;
       }
       
-      .text img
+      #chartsicht
       {
-      	border-style: solid;
-     	border-width: 5px;
-     	width:800px;
+      	width:300px;
+     	margin:0px auto;
       }
       
       #headline
@@ -61,7 +60,14 @@
 		<div class="text">
 		<p>Willkommen auf der User und Partnerverwaltung von MyContract</p>
 		<p>Um durch die Datenbanken zu Navigieren bitte auf die Reiter klicken</p>
-		<img src="https://thumbs.dreamstime.com/z/einhorn-und-regenbogen-39768832.jpg" alt="let the magic happen" />
+		
+		<div id="chartsicht">
+		<h:panelGrid>
+			<p:chart  type="bar" model="#{chartView.animatedModel}" style="width:400px;" border-style="solid" />
+		</h:panelGrid>
+		</div>
+		
+		
 		</div>
 			</h:body>
 
